@@ -1,0 +1,40 @@
+{
+    "name": "name-of-the-project",
+    "version": "1.0.0",
+    "description": "Project description",
+    "main": "backend/www/name-project.js",
+    "scripts": {
+        "build": "webpack --mode=production --env=production",
+        "build-dev": "webpack --mode=development --env=development",
+        "dev": "webpack-dev-server --mode=development",
+        "test": "eslint --fix frontend/ || exit 0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.prtech.mk/perunv3/perun-module-template.git"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.3",
+        "perun-core": "git+https://git@gitlab.prtech.mk/svarog4/perun-core#dev",
+        "react-bootstrap": "^2.10.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.23.9",
+        "@babel/eslint-parser": "^7.23.10",
+        "@babel/preset-env": "^7.23.9",
+        "@babel/preset-react": "^7.23.3",
+        "babel-loader": "^9.1.3",
+        "css-loader": "^6.10.0",
+        "eslint": "^8.56.0",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "file-loader": "^6.2.0",
+        "style-loader": "^3.3.4",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.2"
+    },
+    "author": "Perun Tech",
+    "license": "ISC"
+}

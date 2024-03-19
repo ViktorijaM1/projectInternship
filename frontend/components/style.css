@@ -1,0 +1,63 @@
+.react-grid-Toolbar .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    color: inherit;
+    background: #fff;
+    border: 1px solid #e7eaec;
+}
+
+.nav-link {
+
+    color: white;
+}
+
+.subItems {
+    padding: 40px 20px;
+    touch-action: manipulation;
+
+}
+
+.title_ {
+
+    color: white;
+    z-index: 100;
+    width: 100%;
+    z-index: 3;
+    color: #fff;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding-left: 15%;
+
+}
+
+.subItem-label {
+
+    color: white;
+    padding: 2px 0px 1px 10px;
+    text-align: start;
+    margin-left: 4rem;
+    cursor: pointer;
+    outline: none;
+
+
+}
+
+.submenu.active {
+
+    background-color: #c59f6b;
+    margin-left: 20%;
+    border-left: 5px solid #fff;
+
+
+}
