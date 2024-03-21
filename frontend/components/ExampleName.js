@@ -1,6 +1,6 @@
 import { React, axios, connect, elements, GenericForm, Modal, GridManager } from 'perun-core'
 const { alertUser } = elements
-import Grid from './Type'
+import Type from './Type'
 import './style.css'
 
 
@@ -209,7 +209,7 @@ const ExampleName = ({ session }) => {
 
             <div className='container grid-container'>
 
-                <Grid
+                <Type
                     item={selectedSubItem ? selectedSubItem : selectedItem}
                     showModal={showModal}
                     readOnly={readOnly}

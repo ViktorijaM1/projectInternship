@@ -1,6 +1,6 @@
 import { React, ExportableGrid, GenericForm } from 'perun-core'
 
-const Grid = ({ item, showModal, readOnly, gridId, onRowClick }) => {
+const Type = ({ item, showModal, readOnly, gridId, onRowClick }) => {
 
 
     if (item && item.objectConfiguration && item.objectConfiguration.type === 'grid') {
@@ -35,4 +35,4 @@ const Grid = ({ item, showModal, readOnly, gridId, onRowClick }) => {
     }
 };
 
-export default Grid;
+export default Type;
