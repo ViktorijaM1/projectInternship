@@ -1,6 +1,6 @@
 import { React, ExportableGrid, GenericForm } from 'perun-core'
 
-const Type = ({ item, showModal, readOnly, gridId, formId, onRowClick }) => {
+const Type = ({ item, showModal, readOnly, gridId, formId, onRowClick, hideBtns }) => {
 
 
     if (item && item.objectConfiguration && item.objectConfiguration.type === 'grid') {
@@ -27,6 +27,7 @@ const Type = ({ item, showModal, readOnly, gridId, formId, onRowClick }) => {
                     method={item.objectConfiguration.configuration?.onSubmit}
                     uiSchemaConfigMethod={item.objectConfiguration.uischema?.onSubmit}
                     tableFormDataMethod={item.objectConfiguration.data?.onSubmit}
+                    hideBtns={hideBtns}
                 />
             </>
         );

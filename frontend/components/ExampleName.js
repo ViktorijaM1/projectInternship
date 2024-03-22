@@ -128,7 +128,7 @@ const ExampleName = ({ session }) => {
                 }).catch(error => {
 
 
-                    alertUser(true, 'error', error.data?.title || '', error.data?.message || '');
+                    alertUser(true, 'error', error.response?.data?.title || '', error.response?.data?.message || '');
 
                 })
         }
@@ -192,7 +192,7 @@ const ExampleName = ({ session }) => {
                 }
 
             }).catch(error => {
-                alertUser(true, error.data.type.toLowerCase(), error.data.message)
+                alertUser(true, 'error', error.response.data?.title || '', error.response.data?.message || '');
 
 
             })
@@ -235,6 +235,7 @@ const ExampleName = ({ session }) => {
                     gridId={gridId}
                     formId={formId}
                     onRowClick={onRowClick}
+                    hideBtns={hideBtns}
                 />
 
 
