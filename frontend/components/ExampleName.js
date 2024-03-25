@@ -1,4 +1,4 @@
-import { React, axios, connect, elements, GenericForm, Modal, GridManager } from 'perun-core'
+import { React, axios, connect, elements, GenericForm, Modal, GridManager, ComponentManager } from 'perun-core'
 const { alertUser } = elements
 import Type from './Type'
 import './style.css'
@@ -37,6 +37,7 @@ const ExampleName = ({ session }) => {
 
     const handleItemClick = (item) => {
 
+        ComponentManager.cleanComponentReducerState(gridId);
 
         if (!item.data || item.data.length === 0) {
             setSelectedItem(item);
@@ -44,7 +45,6 @@ const ExampleName = ({ session }) => {
 
 
         }
-
         setReadOnly(item.objectConfiguration?.form?.configuration?.readOnly);
         if (item.data && item.data.length > 0) {
             setOpenSubmenus((prevOpenSubmenus) =>
@@ -57,13 +57,11 @@ const ExampleName = ({ session }) => {
 
     const handleSubItemClick = (subItem) => {
 
+        ComponentManager.cleanComponentReducerState(gridId);
         setSelectedSubItem(subItem);
-        setSelectedItem(null)
         setReadOnly(subItem?.objectConfiguration?.form?.configuration?.readOnly);
 
     };
-
-
 
     React.useEffect(() => {
         console.log("Selected SubItem Changed:", selectedSubItem);
@@ -107,6 +105,15 @@ const ExampleName = ({ session }) => {
         }
         const saveRecord = (e) => {
 
+            const formData = ComponentManager.getStateForComponent(formId, "formTableData");
+            const isEmpty = Object.values(formData).every((value) => value === null || value === undefined);
+
+            if (!formData || isEmpty) {
+                alertUser(true, 'error', 'Please enter data and try again');
+                closeModal();
+                return;
+            }
+
             const url = window.server + item?.objectConfiguration?.form?.save?.onSave
             axios({
                 method: 'post',
@@ -123,15 +130,20 @@ const ExampleName = ({ session }) => {
                             closeModal();
                             GridManager.reloadGridData(gridId)
                         }
+                        else {
+                            ComponentManager.setStateForComponent(formId, null, { saveExecuted: false })
+                        }
 
                     }
                 }).catch(error => {
 
 
-                    alertUser(true, 'error', error.response?.data?.title || '', error.response?.data?.message || '');
+                    alertUser(true, 'error', error.response?.data?.title || '', error.response?.data?.message || '', () => ComponentManager.setStateForComponent(formId, null, { saveExecuted: false }));
 
                 })
         }
+
+
 
         const method = item?.objectConfiguration?.form?.configuration?.onSubmit
         const uiSchema = item?.objectConfiguration?.form?.uischema?.onSubmit;
@@ -151,7 +163,10 @@ const ExampleName = ({ session }) => {
             disabled={readOnly}
         />
 
+
+
         );
+
         const modal = (
 
             <Modal
@@ -189,10 +204,12 @@ const ExampleName = ({ session }) => {
                 if (resType === 'success') {
                     closeModal();
                     GridManager.reloadGridData(gridId)
+                } else {
+                    ComponentManager.setStateForComponent(formId, null, { saveExecuted: false })
                 }
 
             }).catch(error => {
-                alertUser(true, 'error', error.response.data?.title || '', error.response.data?.message || '');
+                alertUser(true, 'error', error.response.data?.title || '', error.response.data?.message || '', () => ComponentManager.setStateForComponent(formId, null, { saveExecuted: false }));
 
 
             })
@@ -202,19 +219,19 @@ const ExampleName = ({ session }) => {
         <>
             <nav className="sidebar-menu">
                 <ul className="navbar-nav mr-auto">
-                    {data.map((item) => (
-                        <li className="nav-item" key={item.id}>
+                    {data.map((dataItem) => (
+                        <li className="nav-item" key={dataItem.id} >
                             <a
-                                className={`nav-link ${item.data && item.data.length > 0 ? 'dropdown-toggle' : ''}`}
-                                onClick={() => handleItemClick(item)}
+                                className={`nav-link ${dataItem === item ? 'clicked' : ''}  ${dataItem.data && dataItem.data.length > 0 ? 'dropdown-toggle' : ''}`}
+                                onClick={() => handleItemClick(dataItem)}
                             >
-                                {item.label}
+                                {dataItem.label}
 
                             </a>
-                            {isSubmenuOpen(item) && (
-                                <div className="dropdown-menu" aria-labelledby={`navbarDropdown${item.id}`}>
-                                    {item.data.map((subItem) => (
-                                        <a key={subItem.id} className="dropdown-item" onClick={() => handleSubItemClick(subItem, item)}>
+                            {isSubmenuOpen(dataItem) && (
+                                <div className="dropdown-menu" aria-labelledby={`navbarDropdown${dataItem.id}`}>
+                                    {dataItem.data.map((subItem) => (
+                                        <a key={subItem.id} className={`dropdown-item nav-link ${subItem === item ? 'clicked' : ''}`} onClick={() => handleSubItemClick(subItem, dataItem)}>
                                             {subItem.label}
                                         </a>
                                     ))}

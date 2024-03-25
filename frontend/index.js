@@ -6,9 +6,6 @@
 
 import ExampleName from "./components/ExampleName"
 
-import ModuleComponentWrapper from "./name-project/ModuleComponentWrapper"
-
-
 
 const routes = [{
     name: 'module-entry-screen-route-name',

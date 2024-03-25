@@ -35,13 +35,11 @@
     margin-top: 10px;
 }
 
-.dropdown-menu {
-    background-color: lavender;
-}
 
-.nav-item:hover {
-    background-color: #e7eaec;
-}
+/* .nav-item:hover {
+    background-color: lavender;
+    ;
+} */
 
 .nav-item {
     top: 10px;
@@ -70,3 +68,20 @@
 .grid-container .widget-HeaderCell__value {
     line-height: 30px;
 }
+
+.clicked {
+
+    background-color: lavender;
+}
+
+.dropdown-item {
+    width: auto;
+}
+
+.nav-link:hover {
+    background-color: lavender;
+}
+
+/* .dropdown-item:hover {
+    background-color: lavender;
+} */
